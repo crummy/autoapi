@@ -7,6 +7,10 @@ plugins {
     kotlin("plugin.serialization")
 }
 
+val kotlinxSerializationVersion = project.property("kotlinx.serialization.version") as String
+val ktorVersion = project.property("ktor.version") as String
+
+
 application {
     mainClass.set("com.malcolmcrum.autoapi.server.SampleServerKt")
 }
@@ -19,12 +23,12 @@ repositories {
 }
 
 dependencies {
-    implementation("io.ktor:ktor-server-core:1.5.0")
-    implementation("io.ktor:ktor-server-netty:1.5.0")
-    implementation("io.ktor:ktor-serialization:1.5.0")
-    implementation("io.ktor:ktor-locations:1.5.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.0.1")
+    implementation("io.ktor:ktor-server-core:$ktorVersion")
+    implementation("io.ktor:ktor-server-netty:$ktorVersion")
+    implementation("io.ktor:ktor-serialization:$ktorVersion")
+    implementation("io.ktor:ktor-locations:$ktorVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinxSerializationVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$kotlinxSerializationVersion")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.30-M1")
 
     implementation(project(":shared"))
