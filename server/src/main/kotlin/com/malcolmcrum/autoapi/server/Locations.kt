@@ -2,6 +2,11 @@ package com.malcolmcrum.autoapi.server
 
 import io.ktor.locations.*
 
-@KtorExperimentalLocationsAPI
-@Location("/list/{name}/page/{page}")
-data class Listing(val name: String, val page: Int)
+@Location("/restaurants")
+class GetRestaurants
+
+@Location("/restaurants")
+class CreateRestaurant
+
+@Location("/restaurants/{id}")
+data class GetRestaurant(val id: Int)

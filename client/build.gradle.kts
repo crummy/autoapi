@@ -1,6 +1,7 @@
 plugins {
     kotlin("js")
     kotlin("plugin.serialization")
+    id("com.github.turansky.kfc.definitions") version "2.25.0" // to strip kotlin.js from definitions - e.g. kotlin.js.Promise<> to Promise<>
 }
 
 val kotlinxSerializationVersion = project.property("kotlinx.serialization.version") as String

@@ -1,13 +1,12 @@
 package com.malcolmcrum.autoapi.generator
 
-import com.malcolmcrum.autoapi.server.Endpoint
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import io.ktor.client.*
 import kotlinx.coroutines.GlobalScope
 import java.nio.file.Paths
 
-class ClientGenerator(responseMapping: Set<Endpoint>) {
+fun generateClient(responseMapping: Set<Endpoint>) {
     val jsExport = ClassName("kotlin.js", "JsExport")
     val jsonFeature = ClassName("io.ktor.client.features.json", "JsonFeature")
     val clientField = PropertySpec.builder("client", HttpClient::class, KModifier.PRIVATE)
@@ -34,10 +33,8 @@ class ClientGenerator(responseMapping: Set<Endpoint>) {
 
     val clientFolder = Paths.get("../client/src/main/kotlin")
 
-    init {
-        file.writeTo(clientFolder)
-        file.writeTo(System.out)
-    }
+    file.writeTo(clientFolder)
+    file.writeTo(System.out)
 
 }
 
@@ -48,14 +45,20 @@ private fun Endpoint.toClientRequest(): FunSpec {
     for (parameter in parameters) {
         function.addParameter(parameter.name!!, parameter.type.asTypeName())
     }
+    if (requestBody != null) {
+        function.addParameter("body", requestBody)
+    }
     var location = path;
     for (param in parameters) {
         location = location.replace("{${param.name}}", "\$${param.name}")
     }
     function.addStatement("val location = \"\$basePath$location\"")
-    function.addStatement("return %T.%M { client.%M(location) }", GlobalScope::class, promise, method)
+    if (requestBody != null) {
+        function.addStatement("return %T.%M { client.%M(location) { this.body = body } }", GlobalScope::class, promise, method)
+    } else {
+        function.addStatement("return %T.%M { client.%M(location) }", GlobalScope::class, promise, method)
+    }
     val jsPromise = ClassName("kotlin.js", "Promise")
-    val returns = ClassName(returnType.qualifiedName!!.removePrefix(returnType.simpleName!!), returnType.simpleName!!)
-    function.returns(jsPromise.parameterizedBy(returns))
+    function.returns(jsPromise.parameterizedBy(returnType))
     return function.build()
 }

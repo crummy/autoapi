@@ -1,23 +1,28 @@
 package com.malcolmcrum.autoapi.server
 
-import Body
-import SampleResponse
+import NewRestaurant
+import Restaurant
+import com.malcolmcrum.autoapi.generator.get
+import com.malcolmcrum.autoapi.generator.post
 import io.ktor.application.*
+import io.ktor.features.*
 import io.ktor.locations.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.util.pipeline.*
 
-fun Route.routing() {
-    get<Listing, SampleResponse> { listing ->
-        val response = SampleResponse(listing.name)
-        println(response)
-        return@get response
+@OptIn(ExperimentalStdlibApi::class)
+fun Route.routing(restaurantService: RestaurantService) {
+    get<GetRestaurants, List<Restaurant>> {
+        return@get restaurantService.getAll()
     }
 
-    post<Listing, Body, SampleResponse> { listing: Listing, body: Body ->
-        val response = SampleResponse(listing.name)
-        println(response)
-        return@post response
+    get<GetRestaurant, Restaurant> { singleRestaurant ->
+        val id = singleRestaurant.id
+        return@get restaurantService.get(id) ?: throw NotFoundException("Restaurant $id does not exist")
+    }
+
+    post<CreateRestaurant, NewRestaurant, Restaurant> { _, newRestaurant ->
+        return@post restaurantService.create(newRestaurant)
     }
 }

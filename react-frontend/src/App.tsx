@@ -8,7 +8,7 @@ function App() {
     const client = new AutoAPI("http://localhost:8080");
 
     useEffect(() => {
-        client.getListing("foo", 1)
+        client.getRestaurants()
             .then((result: SampleResponse) => console.log(result))
             .catch((error: any) => console.error(error))
     })

@@ -1,6 +1,7 @@
 package com.malcolmcrum.autoapi.server
 
-import com.malcolmcrum.autoapi.generator.ClientGenerator
+import com.malcolmcrum.autoapi.generator.Endpoints
+import com.malcolmcrum.autoapi.generator.generateClient
 import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.locations.*
@@ -17,8 +18,9 @@ fun Application.module() {
     install(CORS) {
         anyHost()
     }
+    val restaurantService = RestaurantService()
     routing {
-        routing()
+        routing(restaurantService)
     }
-    ClientGenerator(Endpoints.get())
+    generateClient(Endpoints.get())
 }
