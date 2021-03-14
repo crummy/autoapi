@@ -72,11 +72,6 @@ private fun TypeName.overrideTypes(): TypeName {
 
 @ExperimentalStdlibApi
 inline fun <reified LOCATION : Any, reified OUT : Any> Route.get(noinline body: suspend PipelineContext<Unit, ApplicationCall>.(LOCATION) -> OUT): Route {
-    println(
-        "location: ${LOCATION::class}, annotations: ${
-            LOCATION::class.annotations.filterIsInstance<Location>().first()
-        }"
-    )
     val endpoint = Endpoint.get<LOCATION, OUT>()
     Endpoints.add(endpoint)
     return location(LOCATION::class) {
@@ -90,11 +85,6 @@ inline fun <reified LOCATION : Any, reified OUT : Any> Route.get(noinline body: 
 }
 
 inline fun <reified LOCATION : Any, reified IN : Any, reified OUT : Any> Route.post(noinline body: suspend PipelineContext<Unit, ApplicationCall>.(LOCATION, IN) -> OUT): Route {
-    println(
-        "location: ${LOCATION::class}, annotations: ${
-            LOCATION::class.annotations.filterIsInstance<Location>().first()
-        }"
-    )
     val endpoint = Endpoint.post<LOCATION, IN, OUT>()
     Endpoints.add(endpoint)
     return location(LOCATION::class) {

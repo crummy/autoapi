@@ -14,4 +14,4 @@ pluginManagement {
     }
 }
 
-include("shared", "server", "client")
+include("shared", "server", "client", "generator")

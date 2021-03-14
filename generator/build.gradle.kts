@@ -19,16 +19,15 @@ repositories {
 }
 
 dependencies {
-    implementation("io.ktor:ktor-server-core:1.5.0")
-    implementation("io.ktor:ktor-server-netty:1.5.0")
     implementation("io.ktor:ktor-serialization:1.5.0")
     implementation("io.ktor:ktor-locations:1.5.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.0.1")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.30-M1")
+    implementation("com.squareup:kotlinpoet:1.7.2")
+    implementation("io.ktor:ktor-client-cio:1.5.2")
 
     implementation(project(":shared"))
-    implementation(project(":generator"))
 }
 
 group = "org.ktbyte"
