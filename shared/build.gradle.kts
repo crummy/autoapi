@@ -13,14 +13,6 @@ kotlin {
     js {
         useCommonJs()
         browser {
-            testTask {
-                testLogging {
-                    showExceptions = true
-                    exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
-                    showCauses = true
-                    showStackTraces = true
-                }
-            }
         }
         binaries.executable()
 
@@ -45,6 +37,8 @@ kotlin {
                 implementation(kotlin("stdlib-jdk8"))
                 implementation("io.ktor:ktor-server-netty:$ktorVersion")
                 implementation("io.ktor:ktor-client-apache:$ktorVersion")
+                implementation("org.jetbrains:kotlin-css:1.0.0-$kotlinWrappersSuffix")
+
             }
         }
         val jvmTest by getting {

@@ -6,7 +6,6 @@ plugins {
 
 val kotlinxSerializationVersion = project.property("kotlinx.serialization.version") as String
 val kotlinxCoroutinesVersion = project.property("kotlinx.coroutines.version") as String
-val kotlinWrappersSuffix = project.property("kotlin.wrappers.suffix") as String
 val ktorVersion = project.property("ktor.version") as String
 
 kotlin {

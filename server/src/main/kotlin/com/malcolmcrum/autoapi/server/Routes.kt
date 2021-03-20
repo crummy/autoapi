@@ -17,6 +17,10 @@ fun Route.routing(restaurantService: RestaurantService) {
         return@get restaurantService.getAll()
     }
 
+    get<GetRestaurantMap, Map<Int, Restaurant>> {
+        return@get mapOf()
+    }
+
     get<GetRestaurant, Restaurant> { singleRestaurant ->
         val id = singleRestaurant.id
         return@get restaurantService.get(id) ?: throw NotFoundException("Restaurant $id does not exist")
@@ -25,4 +29,6 @@ fun Route.routing(restaurantService: RestaurantService) {
     post<CreateRestaurant, NewRestaurant, Restaurant> { _, newRestaurant ->
         return@post restaurantService.create(newRestaurant)
     }
+
+
 }

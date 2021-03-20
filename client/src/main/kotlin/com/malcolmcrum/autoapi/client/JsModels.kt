@@ -1,10 +1,7 @@
-package com.malcolmcrum.autoapi
-
-import kotlin.js.JsExport
+package com.malcolmcrum.autoapi.client
 
 typealias JsMap<K, V> = Map<K, V>
 
-@JsExport
 external class Map<in K : Any, V> {
     fun clear()
     fun delete(key: K): Boolean

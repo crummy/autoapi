@@ -23,4 +23,5 @@ fun Application.module() {
         routing(restaurantService)
     }
     generateClient(Endpoints.get())
+    println("Server is started")
 }

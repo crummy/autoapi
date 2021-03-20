@@ -1,6 +1,5 @@
 package com.malcolmcrum.autoapi.generator
 
-import com.malcolmcrum.autoapi.JsMap
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import io.ktor.application.*
@@ -64,7 +63,7 @@ private fun TypeName.overrideTypes(): TypeName {
             return ClassName("kotlin", "Array").parameterizedBy(typeArguments.map { it.overrideTypes() })
         }
         else if (rawType == Map::class.asClassName()) {
-            return JsMap::class.asClassName()
+            return ClassName("com.malcolmcrum.autoapi.client", "Map").parameterizedBy(typeArguments.map { it.overrideTypes() })
         }
     }
     return this;

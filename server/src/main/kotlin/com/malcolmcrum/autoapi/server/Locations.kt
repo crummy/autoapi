@@ -10,3 +10,6 @@ class CreateRestaurant
 
 @Location("/restaurants/{id}")
 data class GetRestaurant(val id: Int)
+
+@Location("/restaurants/map")
+class GetRestaurantMap

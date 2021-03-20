@@ -7,8 +7,10 @@ plugins {
     kotlin("plugin.serialization")
 }
 
+val kotlinVersion = project.property("kotlin.version") as String
 val kotlinxSerializationVersion = project.property("kotlinx.serialization.version") as String
 val ktorVersion = project.property("ktor.version") as String
+val kotlinWrappersSuffix = project.property("kotlin.wrappers.suffix") as String
 
 
 application {
@@ -29,7 +31,7 @@ dependencies {
     implementation("io.ktor:ktor-locations:$ktorVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinxSerializationVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$kotlinxSerializationVersion")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.30-M1")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
 
     implementation(project(":shared"))
     implementation(project(":generator"))
