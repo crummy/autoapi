@@ -53,8 +53,10 @@ private fun Endpoint.toClientRequest(): FunSpec {
         location = location.replace("{${param.name}}", "\$${param.name}")
     }
     function.addStatement("val location = \"\$basePath$location\"")
+    val jsonContentType = MemberName("io.ktor.http.ContentType.Application", "Json")
+    val contentType = MemberName("io.ktor.http", "contentType")
     if (requestBody != null) {
-        function.addStatement("return %T.%M { client.%M(location) { this.body = body } }", GlobalScope::class, promise, method)
+        function.addStatement("return %T.%M { client.%M(location) { %M(%M); this.body = body } }", GlobalScope::class, promise, method, contentType, jsonContentType)
     } else {
         function.addStatement("return %T.%M { client.%M(location) }", GlobalScope::class, promise, method)
     }

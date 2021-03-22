@@ -4,7 +4,7 @@ import {NewRestaurant, Restaurant} from 'autoapi-shared'
 import React, {useEffect, useState} from "react";
 
 function App() {
-    const client = new AutoAPI("http://localhost:8081");
+    const client = new AutoAPI("http://crummy:8081");
     const [restaurants, setRestaurants] = useState<Restaurant[]>([])
     const [error, setError] = useState(undefined)
 
@@ -16,6 +16,8 @@ function App() {
         client.getRestaurants()
             .then((result) => setRestaurants(result))
             .catch((error: any) => setError(error))
+
+        //client.getRestaurantMap().then(result => console.log(result))
     }, [])
 
     const createRestaurant  = (e: React.MouseEvent<HTMLButtonElement>) => {

@@ -18,10 +18,10 @@ fun Application.module() {
     install(CORS) {
         anyHost()
     }
+    install(CallLogging)
     val restaurantService = RestaurantService()
     routing {
         routing(restaurantService)
     }
     generateClient(Endpoints.get())
-    println("Server is started")
 }
